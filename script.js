@@ -15,7 +15,7 @@ function playRound(playerSelection, computerSelection) {
         case "rock": {
             if (computerSelection == "paper")
                 winnerStatement = "You lose!, paper beats rock";
-            else winnerStatement = "You won!, rock beats scissor";
+            else winnerStatement = "You win!, rock beats scissor";
             break;
         }
         case "paper": {
@@ -32,31 +32,6 @@ function playRound(playerSelection, computerSelection) {
     return winnerStatement;
 }
 
-// const playerSelection = "rock";
-// const computerSelection = computerPlay();
-// console.log(playRound(playerSelection, computerSelection));
-
-function game() {
-    let playerSelection;
-    let computerSelection;
-    let winnerStatement;
-
-    for (let i = 0; i < 5; i++) {
-        playerSelection = prompt('Rock, Paper, Scissor');
-        computerSelection = computerPlay();
-        winnerStatement = playRound(playerSelection, computerSelection);
-        console.log(winnerStatement);
-        countTracker(winnerStatement);
-
-    }
-    if (playerwincount > computerwincount)
-        console.log(`Player-Wins :: player=${playerwincount} computer=${computerwincount}`);
-    else if (playerwincount < computerwincount)
-        console.log(`Computer-Wins :: player=${playerwincount} computer=${computerwincount}`);
-    else console.log(`it is tie :: player=${playerwincount} computer=${computerwincount}`);
-}
-
-
 function countTracker(winnerStatement) {
     if (winnerStatement.indexOf('win') != -1) {
         playerwincount += 1;
@@ -65,6 +40,59 @@ function countTracker(winnerStatement) {
         computerwincount += 1;
     }
 }
-game()
+
+
+//************************** version-1
+// function game() {
+//     let playerSelection;
+//     let computerSelection;
+//     let winnerStatement;
+
+//     for (let i = 0; i < 5; i++) {
+//         playerSelection = prompt('Rock, Paper, Scissor');
+//         computerSelection = computerPlay();
+//         winnerStatement = playRound(playerSelection, computerSelection);
+//         console.log(winnerStatement);
+//         countTracker(winnerStatement);
+
+//     }
+//     if (playerwincount > computerwincount)
+//         console.log(`Player-Wins :: player=${playerwincount} computer=${computerwincount}`);
+//     else if (playerwincount < computerwincount)
+//         console.log(`Computer-Wins :: player=${playerwincount} computer=${computerwincount}`);
+//     else console.log(`it is tie :: player=${playerwincount} computer=${computerwincount}`);
+// }
+//game()
+
+
+//***************************version2 */
+
+let but = document.querySelectorAll(".but");
+console.log(but);
+but.forEach(btn => btn.addEventListener('click', ()=>{
+    
+    countTracker(playRound(btn.value,computerPlay()));
+    let container = document.querySelector('div');
+    let div = document.createElement('div');
+    div.textContent = `Player-Score: ${playerwincount} Computer-Score: ${computerwincount}`;
+    let win = document.createElement('div');
+    container.appendChild(div);
+    if(playerwincount == 5){
+        
+        win.textContent = "Congratulations You Won 🏆";
+        container.appendChild(win);
+        playerwincount =0;
+        computerwincount =0;
+
+    }else if(computerwincount ==5){
+        win.textContent = "Computer Won, let's try again";
+        container.appendChild(win);
+        playerwincount =0;
+        computerwincount =0;
+
+    }
+    
+}))
+
 
 // this is just for testing git client 
